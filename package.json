@@ -1,0 +1,26 @@
+{
+  "name": "day-78-online-shop",
+  "version": "1.0.0",
+  "description": "Milestone Project for 100 days of Web Dev Course by Acadmind",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashrajwani/online-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yashrajwani/online-shop/issues"
+  },
+  "homepage": "https://github.com/yashrajwani/online-shop#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
