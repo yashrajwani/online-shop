@@ -22,6 +22,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // statically serve public folder -> all content in public folder can be requested by users
 app.use(express.static("public"));
+app.use("/products/assets", express.static( "product-data"));
 
 // Decode data from requests
 app.use(express.urlencoded({ extended: false }));
