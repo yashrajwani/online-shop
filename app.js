@@ -13,6 +13,7 @@ const createSessionConfig = require("./config/session");
 const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const checkAuthStatusMiddleware = require("./middlewares/check-auth");
+const protectRoutesMiddleware = require("./middlewares/protect-routes");
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // statically serve public folder -> all content in public folder can be requested by users
 app.use(express.static("public"));
-app.use("/products/assets", express.static( "product-data"));
+app.use("/products/assets", express.static("product-data"));
 
 // Decode data from requests
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use(protectRoutesMiddleware);
 app.use("/admin", adminRoutes);
 
 app.use(errorHandlerMiddleware);

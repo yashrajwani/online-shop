@@ -45,10 +45,11 @@ class Product {
   }
 
   static async findAll() {
-    const products = await db.getDb().collection("products").find().toArray();
-    return products.map(function (productDocument) {
+    let products = await db.getDb().collection("products").find().toArray();
+    products = products.map(function (productDocument) {
       return new Product(productDocument);
     });
+    return products;
   }
 
   static async findById(productId) {
