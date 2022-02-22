@@ -7,4 +7,5 @@ A complete online shop where a buyer can buy goods, login, add items to cart, vi
 To run: 
 
 npm install
+
 npm start
