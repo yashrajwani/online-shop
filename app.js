@@ -1,61 +1,62 @@
-const express = require("express");
-const path = require("path");
-const csrf = require("csurf");
-const expressSession = require("express-session");
+const path = require('path');
 
-const db = require("./data/database");
-const authRoutes = require("./routes/auth.routes");
-const productRoutes = require("./routes/product.routes");
-const baseRoutes = require("./routes/base.routes");
-const adminRoutes = require("./routes/admin.routes");
-const cartRoutes = require("./routes/cart.routes");
-const createSessionConfig = require("./config/session");
+const express = require('express');
+const csrf = require('csurf');
+const expressSession = require('express-session');
 
-const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
-const errorHandlerMiddleware = require("./middlewares/error-handler");
-const checkAuthStatusMiddleware = require("./middlewares/check-auth");
-const protectRoutesMiddleware = require("./middlewares/protect-routes");
-const cartMiddleware = require("./middlewares/cart");
+const createSessionConfig = require('./config/session');
+const db = require('./data/database');
+const addCsrfTokenMiddleware = require('./middlewares/csrf-token');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
+const checkAuthStatusMiddleware = require('./middlewares/check-auth');
+const protectRoutesMiddleware = require('./middlewares/protect-routes');
+const cartMiddleware = require('./middlewares/cart');
+const updateCartPricesMiddleware = require('./middlewares/update-cart-prices');
+const notFoundMiddleware = require('./middlewares/not-found');
+const authRoutes = require('./routes/auth.routes');
+const productsRoutes = require('./routes/products.routes');
+const baseRoutes = require('./routes/base.routes');
+const adminRoutes = require('./routes/admin.routes');
+const cartRoutes = require('./routes/cart.routes');
+const ordersRoutes = require('./routes/orders.routes');
 
 const app = express();
 
-// setting view engine
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// statically serve public folder -> all content in public folder can be requested by users
-app.use(express.static("public"));
-app.use("/products/assets", express.static("product-data"));
-
-// Decode data from requests
+app.use(express.static('public'));
+app.use('/products/assets', express.static('product-data'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const sessionConfig = createSessionConfig();
+
 app.use(expressSession(sessionConfig));
-
-app.use(cartMiddleware.initializeCart);
-
-// Adding CSRF (Cross Site Request Forgery) protection
 app.use(csrf());
-app.use(addCsrfTokenMiddleware);
 
+app.use(cartMiddleware);
+app.use(updateCartPricesMiddleware);
+
+app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
 
 app.use(baseRoutes);
 app.use(authRoutes);
-app.use(productRoutes);
-app.use("/cart", cartRoutes);
-app.use(protectRoutesMiddleware);
-app.use("/admin", adminRoutes);
+app.use(productsRoutes);
+app.use('/cart', cartRoutes);
+app.use('/orders', protectRoutesMiddleware, ordersRoutes);
+app.use('/admin', protectRoutesMiddleware, adminRoutes);
+
+app.use(notFoundMiddleware);
 
 app.use(errorHandlerMiddleware);
 
 db.connectToDatabase()
-  .then(() => {
+  .then(function () {
     app.listen(3000);
   })
-  .catch((error) => {
-    console.log("Failed to connect to database");
+  .catch(function (error) {
+    console.log('Failed to connect to the database!');
     console.log(error);
   });

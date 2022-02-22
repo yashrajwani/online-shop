@@ -3,7 +3,7 @@
 }
 
 html {
-  font-family: "Roboto", "sans-serif";
+  font-family: "Montserrat", "sans-serif";
 
   --color-gray-50: rgb(243, 236, 230);
   --color-gray-100: rgb(207, 201, 195);
@@ -48,11 +48,10 @@ body {
 main {
   width: 90%;
   max-width: 50rem;
-  /* center content */
   margin: 0 auto;
 }
 
-ul,
+ul, 
 ol {
   list-style: none;
   margin: 0;
@@ -84,6 +83,7 @@ a {
   background-color: transparent;
   color: var(--color-primary-500);
 }
+
 .btn-alt:hover,
 .btn-alt:active {
   background-color: var(--color-primary-500-bg);
@@ -108,9 +108,8 @@ a {
 
 .badge {
   margin-left: var(--space-2);
-  padding: .15rem var(--space-4);
+  padding: 0.15rem var(--space-4);
   border-radius: 10rem;
   background-color: var(--color-primary-500);
   color: var(--color-primary-500-contrast);
-  
 }

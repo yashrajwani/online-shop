@@ -1,34 +1,26 @@
 {
-  "name": "day-78-online-shop",
+  "name": "web-dev-complete-guide",
   "version": "1.0.0",
-  "description": "Milestone Project for 100 days of Web Dev Course by Acadmind",
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yashrajwani/online-shop.git"
-  },
   "keywords": [],
-  "author": "",
+  "author": "Maximilian Schwarzmüller",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yashrajwani/online-shop/issues"
-  },
-  "homepage": "https://github.com/yashrajwani/online-shop#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "connect-mongodb-session": "^3.1.1",
+    "connect-mongodb-session": "^3.0.0",
     "csurf": "^1.11.0",
     "ejs": "^3.1.6",
-    "express": "^4.17.2",
+    "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "mongodb": "^4.3.1",
-    "multer": "^1.4.4",
+    "mongodb": "^4.1.0",
+    "multer": "^1.4.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.12"
   }
 }
